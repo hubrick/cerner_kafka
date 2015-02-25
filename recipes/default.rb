@@ -119,8 +119,8 @@ execute "untar kafka binary" do
     File.exists? File.join node["kafka"]["base_dir"], kafkaFullDirectoryName
   end
 
-  # In case kafka is running we need to stop it before we upgrade/change installations
-  notifies :stop, "service[kafka]", :immediately
+  # In case kafka is running we need to restart it after we upgrade/change installations
+  notifies :restart, "service[kafka]"
 end
 
 # Link the actual installation with the install_dir (/opt/kafka_1.0.0 -> /opt/kafka)
